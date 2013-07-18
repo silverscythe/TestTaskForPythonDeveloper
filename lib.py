@@ -86,6 +86,20 @@ def change_author():
     db.commit()
     flash('Author was changed')
 
+@app.route('/delete_author',methods=['POST'])
+def delete_author():
+    db=get_db()
+    db.execute('delete from authors where author=values(?)',[request.form['deleteauthor']])
+    db.commit()
+    flash('Author was deleted')
+
+@app.route('/delete_book',methods=['POST'])
+def delete_book():
+    db=get_db()
+    db.execute('delete from books where book=values(?)',[request.form['deletebook']])
+    db.commit()
+    flash('Book was deleted')
+    
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
