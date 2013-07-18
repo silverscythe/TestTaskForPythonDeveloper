@@ -1,0 +1,35 @@
+<!doctype html>
+<title>Small library</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<div class=page>
+  <h1>Here you can search for some books</h1>
+  <form action="{{ url_for('search_author') }}" method=post class=search-author>
+   Search for author:<input type=text name=searchauthor>
+   <input type=submit name=search value=Search>
+  </form>
+  <form action="{{ url_for('search_book') }}" method=post class=search-book>
+   Search for book:<input type=text name=searchbook>
+   <input type=submit name=search value=Search>
+  </form>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}">log in</a>
+  {% else %}
+    <a href="{{ url_for('logout') }}">log out</a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+  {% endfor %}
+  {% if session.logged_in%} 
+   <form action="{{url_for('change_book')}}" method=post class=change-book>
+   Old book:<input type=text name=oldbook>New book:<input type=text name=newbook>
+   <input type=submit value=Change!>
+   </form>
+   <form action="{{url_for('change_author')}}" method=post class=change-book>
+   Old author:<input type=text name=oldauthor>New author:<input type=text name=newauthor>
+   <input type=submit value=Change!>
+   </form>
+  {%endif%}
+  {% block body %}{% endblock %}
+</div>
