@@ -1,4 +1,0 @@
-TestTaskForPythonDeveloper
-==========================
-
-The testing task
